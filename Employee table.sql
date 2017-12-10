@@ -3,9 +3,9 @@ INSERT INTO `tutorial`.`employee`
 VALUES
 #('job1', 1000, 1, 8),
 #('job2', 2000, 1, 9),
-#('job3', 300, 2, 10),
-#('job4', 400, 2, 11),
-('job6', 50, 3, 13);
+('manager1', 3000, 1, 14),
+('manager2', 5000, 3, 15),
+('manager3', 1000, 3, 16);
 
 Delete from `tutorial`.`employee`;
 

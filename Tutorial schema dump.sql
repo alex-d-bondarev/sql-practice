@@ -104,12 +104,15 @@ CREATE TABLE `employee` (
   `nSalary` int(11) DEFAULT NULL,
   `company_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `manager_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`,`company_id`),
   KEY `fk_employees_company1_idx` (`company_id`),
   KEY `fk_employee_user1_idx` (`user_id`),
+  KEY `fk_employee_employee1_idx` (`manager_id`),
+  CONSTRAINT `fk_employee_employee1` FOREIGN KEY (`manager_id`) REFERENCES `employee` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_employee_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_employees_company1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=big5;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=big5;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,8 +121,31 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (26,'job1',1000,1,8),(27,'job2',2000,1,9),(28,'job3',300,2,10),(29,'job4',400,2,11),(30,'job5',50,3,12),(31,'job6',50,3,13);
+INSERT INTO `employee` VALUES (26,'job1',1000,1,8,32),(27,'job2',2000,1,9,32),(28,'job3',300,2,10,32),(29,'job4',400,2,11,32),(30,'job5',50,3,12,34),(31,'job6',50,3,13,34),(32,'manager1',3000,1,14,NULL),(33,'manager2',5000,3,15,NULL),(34,'manager3',1000,3,16,33);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sequences`
+--
+
+DROP TABLE IF EXISTS `sequences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sequences` (
+  `num` int(11) DEFAULT NULL,
+  `text` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=big5;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sequences`
+--
+
+LOCK TABLES `sequences` WRITE;
+/*!40000 ALTER TABLE `sequences` DISABLE KEYS */;
+INSERT INTO `sequences` VALUES (1,'a'),(2,'b'),(4,'c'),(6,'d'),(10,'e'),(11,'f');
+/*!40000 ALTER TABLE `sequences` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -142,7 +168,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `nPassportID_UNIQUE` (`nPassportID`),
   KEY `fk_users_countries1_idx` (`nCountryID`),
   CONSTRAINT `fk_users_countries1` FOREIGN KEY (`nCountryID`) REFERENCES `country` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=big5;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=big5;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +177,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (8,'fName1','lName1',221,NULL,NULL,NULL,NULL),(9,'fName2','lName2',222,NULL,NULL,NULL,NULL),(10,'fName3','lName3',223,NULL,NULL,NULL,NULL),(11,'fName4','lName4',224,NULL,NULL,NULL,NULL),(12,'fName5','lName5',225,NULL,NULL,NULL,NULL),(13,'fName6','lName6',226,NULL,NULL,NULL,NULL);
+INSERT INTO `user` VALUES (8,'fName1','lName1',221,NULL,NULL,NULL,NULL),(9,'fName2','lName2',222,NULL,NULL,NULL,NULL),(10,'fName3','lName3',223,NULL,NULL,NULL,NULL),(11,'fName4','lName4',224,NULL,NULL,NULL,NULL),(12,'fName5','lName5',225,NULL,NULL,NULL,NULL),(13,'fName6','lName6',226,NULL,NULL,NULL,NULL),(14,'fName7','lName7',331,NULL,NULL,NULL,NULL),(15,'fName8','lName8',332,NULL,NULL,NULL,NULL),(16,'fName9','lName9',333,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,4 +216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-09 11:49:27
+-- Dump completed on 2017-12-10 15:49:29
